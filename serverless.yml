@@ -6,7 +6,13 @@ provider:
   runtime: nodejs18.x
   stage: dev
   region: us-east-1
+  memorySize: 1024
+  timeout: 6
 
 functions:
   hello:
     handler: src/handler.hello
+    events:
+      - httpApi:   # This sets up the HTTP API Gateway
+          path: /hello
+          method: get

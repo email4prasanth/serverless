@@ -32,7 +32,7 @@ jobs:
       #   run: npm install
 
       - name: Install Serverless Framework
-        run: npm install -g serverless
+        run: npm install -g serverless@3
 
       - name: Deploy using Serverless GitHub Action
         uses: serverless/github-action@master
@@ -41,6 +41,22 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        #   AWS_REGION: us-east-1  # Specify your AWS region
+          AWS_REGION: us-east-1  # Specify your AWS region
         #   SLS_DEBUG: '*'
-        # working-directory: dkutti-serverless  # Ensure the correct working directory
+        working-directory: dkutti-serverless  # Ensure the correct working directory
+      # Step to retrieve and display the API Gateway URL
+      - name: Get the API URL
+        run: serverless info
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1  # Specify the AWS region
+
+      - name: Display API URL
+        run: |
+          echo "API Endpoint URL:"
+          serverless info | grep "endpoints:"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1

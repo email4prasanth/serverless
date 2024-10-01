@@ -32,12 +32,14 @@ jobs:
       #   run: npm install
 
       - name: Install Serverless Framework
-        run: npm install -g serverless@3
+        run: |
+          npm install -g serverless@3
+          serverless deploy
 
-      - name: Deploy using Serverless GitHub Action
-        uses: serverless/github-action@master
-        with:
-          args: deploy  # Run `serverless deploy`
+      # - name: Deploy using Serverless GitHub Action
+      #   uses: serverless/github-action@master
+      #   with:
+      #     args: deploy  # Run `serverless deploy`
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
